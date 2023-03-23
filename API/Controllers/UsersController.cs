@@ -1,10 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.JavaScript;
-using API.Data;
+﻿using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.EventLog;
 
 namespace API.Controllers;
 
@@ -20,16 +17,16 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<AppUser>> Get()
+    public async Task<ActionResult<IEnumerable<AppUser>>> Get()
     {
-        return _context.Users.ToList();
+        return await _context.Users.ToListAsync();
     }
 
     [HttpGet("{id:int}")]
-    public ActionResult<AppUser> Get(int id)
+    public async Task<ActionResult<AppUser>> Get(int id)
     {
         Console.WriteLine($"id: {id}");
 
-        return _context.Users.Find(id);;
+        return await _context.Users.FindAsync(id);
     }
 }
